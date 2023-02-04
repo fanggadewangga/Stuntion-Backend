@@ -1,4 +1,4 @@
-package com.killjoy.data
+package com.killjoy.data.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
