@@ -2,7 +2,9 @@ package com.killjoy.model.article
 
 import com.google.gson.annotations.SerializedName
 
-data class ArticleBody(
+data class ArticleLiteResponse(
+    @field:SerializedName("article_id")
+    val articleId: String,
 
     @field:SerializedName("title")
     val title: String,
@@ -13,7 +15,6 @@ data class ArticleBody(
     @field:SerializedName("image_url")
     val imageUrl: String,
 
-    @field:SerializedName("reviewer")
-    val reviewer: String,
-
+    @field:SerializedName("categories")
+    val categories: List<String>,
 )

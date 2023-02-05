@@ -1,4 +1,6 @@
 package com.killjoy.data.repository.expert
 
-class ExpertRepository {
+import com.killjoy.data.database.DatabaseFactory
+
+class ExpertRepository(private val dbFactory: DatabaseFactory): IExpertRepository {
 }

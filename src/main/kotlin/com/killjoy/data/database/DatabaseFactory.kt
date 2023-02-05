@@ -1,5 +1,6 @@
 package com.killjoy.data.database
 
+import com.killjoy.data.table.*
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
@@ -9,28 +10,28 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class DatabaseFactory {
+class DatabaseFactory(
+    private val dataSource: HikariDataSource
+) {
 
     init {
-        Database.connect(dataSource())
+        Database.connect(dataSource)
         transaction {
-            val tables = listOf<Table>()
-            tables.forEach {
-                SchemaUtils.create(it)
+            val tables = listOf(
+                UserTable,
+                ArticleTable,
+                ExpertTable,
+                QuestionTable,
+                ArticleCategoryTable,
+                ExpertCategoryTable,
+                ExpertWorkplaceTable,
+                QuestionCategoryTable,
+            )
+            tables.forEach { table ->
+                SchemaUtils.create(table)
+                SchemaUtils.createMissingTablesAndColumns(table)
             }
         }
-    }
-
-    private fun dataSource(): HikariDataSource {
-        val config = HikariConfig()
-        config.apply {
-            driverClassName = System.getenv("JDBC_DRIVER")
-            jdbcUrl = System.getenv("DATABASE_URL")
-            maximumPoolSize = 6
-            isAutoCommit = false
-            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-        }
-        return HikariDataSource(config)
     }
 
     suspend fun <T> dbQuery(block: () -> T): T =

@@ -1,4 +1,6 @@
 package com.killjoy.data.repository.article
 
-class ArticleRepository {
+import com.killjoy.data.database.DatabaseFactory
+
+class ArticleRepository(private val dbFactory : DatabaseFactory): IArticleRepository {
 }

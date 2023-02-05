@@ -36,4 +36,8 @@ dependencies {
 
     //Util
     implementation "com.aventrix.jnanoid:jnanoid:$jnanoid_version"
+
+    //DI
+    implementation "io.insert-koin:koin-ktor:$koin_version"
+    implementation "io.insert-koin:koin-logger-slf4j:$koin_version"
 }

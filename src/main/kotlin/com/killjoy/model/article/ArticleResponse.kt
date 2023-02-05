@@ -13,13 +13,16 @@ data class ArticleResponse(
     @field:SerializedName("description")
     val description: String,
 
+    @field:SerializedName("image_url")
+    val imageUrl: String,
+
     @field:SerializedName("reviewer")
     val reviewer: String,
 
     @field:SerializedName("timestamp")
     val timestamp: String,
 
-    @field:SerializedName("category")
-    val category: String,
+    @field:SerializedName("categories")
+    val categories: List<String>,
 
 )

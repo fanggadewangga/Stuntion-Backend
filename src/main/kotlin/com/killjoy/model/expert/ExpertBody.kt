@@ -6,6 +6,9 @@ data class ExpertBody(
     @field:SerializedName("name")
     val name: String,
 
+    @field:SerializedName("avatar_url")
+    val avatarUrl: String,
+
     @field:SerializedName("experience_year")
     val experienceYear: Int,
 

@@ -2,19 +2,16 @@ package com.killjoy.model.question
 
 import com.google.gson.annotations.SerializedName
 
-data class QuestionResponse(
+data class QuestionLiteResponse(
 
     @field:SerializedName("question_id")
     val questionId: String,
 
-    @field:SerializedName("question")
-    val question: String,
-
     @field:SerializedName("title")
     val title: String,
 
-    @field:SerializedName("answer")
-    val answer: String?,
+    @field:SerializedName("question")
+    val question: String,
 
     @field:SerializedName("timestamp")
     val timestamp: String,
@@ -33,14 +30,4 @@ data class QuestionResponse(
 
     @field:SerializedName("expert_avatar_url")
     val expertAvatarUrl: String?,
-
-    @field:SerializedName("expert_experience")
-    val expertExperience: Int?,
-
-    @field:SerializedName("expert_rating")
-    val expertRating: Double?,
-
-    @field:SerializedName("expert_categories")
-    val expertCategories: List<String>?,
-
 )

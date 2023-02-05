@@ -1,4 +1,6 @@
 package com.killjoy.data.repository.user
 
-class UserRepository {
+import com.killjoy.data.database.DatabaseFactory
+
+class UserRepository(private val dbFactory: DatabaseFactory): IUserRepository {
 }

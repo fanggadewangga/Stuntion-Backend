@@ -2,7 +2,7 @@ package com.killjoy.model.expert
 
 import com.google.gson.annotations.SerializedName
 
-data class ExpertResponse(
+data class ExpertLiteResponse(
 
     @field:SerializedName("expert_id")
     val expertId: String,
@@ -16,9 +16,6 @@ data class ExpertResponse(
     @field:SerializedName("experience_year")
     val experienceYear: Int,
 
-    @field:SerializedName("str")
-    val str: String,
-
     @field:SerializedName("fee")
     val fee: Int,
 
@@ -28,6 +25,4 @@ data class ExpertResponse(
     @field:SerializedName("categories")
     val categories: List<String>,
 
-    @field:SerializedName("workplaces")
-    val workplaces: List<String>,
 )
