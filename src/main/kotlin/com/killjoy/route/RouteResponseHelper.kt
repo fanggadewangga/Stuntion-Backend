@@ -2,10 +2,10 @@ package com.killjoy.route
 
 import com.killjoy.model.BaseListResponse
 import com.killjoy.model.BaseResponse
+import io.ktor.application.*
+import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.plugins.*
-import io.ktor.server.response.*
+import io.ktor.response.*
 
 object RouteResponseHelper {
 
