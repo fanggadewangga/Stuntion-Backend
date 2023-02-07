@@ -22,7 +22,4 @@ data class ArticleResponse(
     @field:SerializedName("timestamp")
     val timestamp: String,
 
-    @field:SerializedName("categories")
-    val categories: List<String>,
-
 )

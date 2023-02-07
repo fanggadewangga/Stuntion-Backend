@@ -26,6 +26,7 @@ class DatabaseFactory(
                 ExpertCategoryTable,
                 ExpertWorkplaceTable,
                 QuestionCategoryTable,
+                ExpertEducationTable
             )
             tables.forEach { table ->
                 SchemaUtils.create(table)

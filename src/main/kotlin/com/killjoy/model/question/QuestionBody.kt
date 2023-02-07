@@ -13,8 +13,8 @@ data class QuestionBody(
     @field:SerializedName("question")
     val question: String,
 
-    @field:SerializedName("category")
-    val category: List<String>,
+    @field:SerializedName("categories")
+    val categories: List<String>,
 
     @field:SerializedName("isAnonymous")
     val isAnonymous: Boolean,

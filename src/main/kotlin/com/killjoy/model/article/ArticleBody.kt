@@ -16,4 +16,7 @@ data class ArticleBody(
     @field:SerializedName("reviewer")
     val reviewer: String,
 
+    @field:SerializedName("categories")
+    val categories: List<String>,
+
 )

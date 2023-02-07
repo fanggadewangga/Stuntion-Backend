@@ -12,7 +12,7 @@ object ExpertTable : Table() {
     val experienceYear = integer("experience_year")
     val str = varchar("str", 128)
     val fee = integer("fee")
-    val rating = double("rating").nullable()
+    val rating = double("rating")
 
     override val primaryKey = PrimaryKey(expertId)
 }

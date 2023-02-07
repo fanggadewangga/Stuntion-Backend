@@ -12,6 +12,7 @@ import com.killjoy.data.repository.user.UserRepository
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.koin.dsl.module
+import java.net.URI
 
 val databaseModule = module {
 
@@ -32,24 +33,24 @@ val databaseModule = module {
         }
         HikariDataSource(config)
     }
+}
 
-    val repositoryModule = module {
+val repositoryModule = module {
 
-        single<IArticleRepository> {
-            ArticleRepository(get())
-        }
-
-        single<IExpertRepository> {
-            ExpertRepository(get())
-        }
-
-        single<IQuestionRepository> {
-            QuestionRepository(get())
-        }
-
-        single<IUserRepository> {
-            UserRepository(get())
-        }
-
+    single<IArticleRepository> {
+        ArticleRepository(get())
     }
+
+    single<IExpertRepository> {
+        ExpertRepository(get())
+    }
+
+    single<IQuestionRepository> {
+        QuestionRepository(get())
+    }
+
+    single<IUserRepository> {
+        UserRepository(get())
+    }
+
 }

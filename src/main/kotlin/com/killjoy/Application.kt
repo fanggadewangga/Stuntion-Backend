@@ -1,7 +1,10 @@
 package com.killjoy
 
 import com.killjoy.di.databaseModule
+import com.killjoy.di.repositoryModule
 import com.killjoy.di.routeModule
+import com.killjoy.plugins.configureRouting
+import com.killjoy.plugins.configureSerialization
 import io.ktor.application.*
 import io.ktor.locations.*
 import io.ktor.server.engine.*
@@ -18,8 +21,10 @@ fun main() {
     ) {
         install(Koin) {
             slf4jLogger(Level.ERROR)
-            modules(listOf(databaseModule, routeModule))
+            modules(listOf(databaseModule, repositoryModule, routeModule))
         }
         install(Locations)
+        configureRouting()
+        configureSerialization()
     }.start(wait = true)
 }

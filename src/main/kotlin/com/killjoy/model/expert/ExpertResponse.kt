@@ -30,4 +30,7 @@ data class ExpertResponse(
 
     @field:SerializedName("workplaces")
     val workplaces: List<String>,
+
+    @field:SerializedName("educations")
+    val educations: List<String>
 )

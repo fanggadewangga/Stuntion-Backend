@@ -16,5 +16,14 @@ data class ExpertBody(
     val strNumber: String,
 
     @field:SerializedName("fee")
-    val fee: Int
+    val fee: Int,
+
+    @field:SerializedName("categories")
+    val categories: List<String>,
+
+    @field:SerializedName("workplaces")
+    val workplaces: List<String>,
+
+    @field:SerializedName("educations")
+    val educations: List<String>,
 )
