@@ -5,8 +5,8 @@ import com.killjoy.model.question.QuestionLiteResponse
 import com.killjoy.model.question.QuestionResponse
 
 interface IQuestionRepository {
-    suspend fun addNewQuestion(body: QuestionBody)
-    suspend fun getAllQuestions() : List<QuestionLiteResponse>
-    suspend fun getQuestionDetail(questionId : String) : QuestionResponse
-    suspend fun searchQuestion(query: String) : List<QuestionLiteResponse>
+    suspend fun addNewQuestion(body: QuestionBody) // clear
+    suspend fun getAllQuestions() : List<QuestionLiteResponse> // clear
+    suspend fun getQuestionDetail(questionId : String) : QuestionResponse // not clear
+    suspend fun searchQuestion(query: String) : List<QuestionLiteResponse> // clear
 }

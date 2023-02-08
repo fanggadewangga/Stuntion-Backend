@@ -19,9 +19,6 @@ data class QuestionResponse(
     @field:SerializedName("timestamp")
     val timestamp: String,
 
-    @field:SerializedName("categories")
-    val categories: List<String>,
-
     @field:SerializedName("user_name")
     val userName: String,
 
