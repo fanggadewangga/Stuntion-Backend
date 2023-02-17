@@ -22,11 +22,16 @@ class DatabaseFactory(
                 ArticleTable,
                 ExpertTable,
                 QuestionTable,
+                DonationTable,
+                NoteTable,
+                TaskTable,
                 ArticleCategoryTable,
                 ExpertCategoryTable,
                 ExpertWorkplaceTable,
                 QuestionCategoryTable,
-                ExpertEducationTable
+                ExpertEducationTable,
+                NoteTaskTable,
+                UserNoteTable
             )
             tables.forEach { table ->
                 SchemaUtils.create(table)

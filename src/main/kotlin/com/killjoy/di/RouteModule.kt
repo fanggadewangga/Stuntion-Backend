@@ -1,6 +1,7 @@
 package com.killjoy.di
 
 import com.killjoy.route.article.ArticleRoute
+import com.killjoy.route.donation.DonationRoute
 import com.killjoy.route.expert.ExpertRoute
 import com.killjoy.route.question.QuestionRoute
 import com.killjoy.route.user.UserRoute
@@ -11,4 +12,5 @@ val routeModule = module {
     factory { ExpertRoute(get()) }
     factory { QuestionRoute(get()) }
     factory { UserRoute(get()) }
+    factory { DonationRoute(get()) }
 }

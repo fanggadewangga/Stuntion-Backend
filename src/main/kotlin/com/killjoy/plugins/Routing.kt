@@ -1,6 +1,7 @@
 package com.killjoy.plugins
 
 import com.killjoy.route.article.ArticleRoute
+import com.killjoy.route.donation.DonationRoute
 import com.killjoy.route.expert.ExpertRoute
 import com.killjoy.route.question.QuestionRoute
 import com.killjoy.route.user.UserRoute
@@ -18,6 +19,7 @@ fun Application.configureRouting() {
     val expertRoute by inject<ExpertRoute>()
     val questionRoute by inject<QuestionRoute>()
     val userRoute by inject<UserRoute>()
+    val donationRoute by inject<DonationRoute>()
 
     routing {
         get("/") {
@@ -32,5 +34,6 @@ fun Application.configureRouting() {
         expertRoute.initExpertRoute(this)
         questionRoute.initQuestionRoute(this)
         userRoute.initUserRoute(this)
+        donationRoute.initDonationRoute(this)
     }
 }

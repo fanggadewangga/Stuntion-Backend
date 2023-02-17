@@ -1,3 +1,5 @@
+@file:OptIn(KtorExperimentalLocationsAPI::class)
+
 package com.killjoy.route.article
 
 import io.ktor.locations.*

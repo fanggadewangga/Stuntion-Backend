@@ -3,6 +3,8 @@ package com.killjoy.di
 import com.killjoy.data.database.DatabaseFactory
 import com.killjoy.data.repository.article.ArticleRepository
 import com.killjoy.data.repository.article.IArticleRepository
+import com.killjoy.data.repository.donation.DonationRepository
+import com.killjoy.data.repository.donation.IDonationRepository
 import com.killjoy.data.repository.expert.ExpertRepository
 import com.killjoy.data.repository.expert.IExpertRepository
 import com.killjoy.data.repository.question.IQuestionRepository
@@ -12,6 +14,7 @@ import com.killjoy.data.repository.user.UserRepository
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.koin.dsl.module
+import java.net.IDN
 import java.net.URI
 
 val databaseModule = module {
@@ -51,6 +54,10 @@ val repositoryModule = module {
 
     single<IUserRepository> {
         UserRepository(get())
+    }
+
+    single<IDonationRepository> {
+        DonationRepository(get())
     }
 
 }
