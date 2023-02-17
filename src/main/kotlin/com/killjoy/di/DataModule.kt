@@ -7,6 +7,8 @@ import com.killjoy.data.repository.donation.DonationRepository
 import com.killjoy.data.repository.donation.IDonationRepository
 import com.killjoy.data.repository.expert.ExpertRepository
 import com.killjoy.data.repository.expert.IExpertRepository
+import com.killjoy.data.repository.note.INoteRepository
+import com.killjoy.data.repository.note.NoteRepository
 import com.killjoy.data.repository.question.IQuestionRepository
 import com.killjoy.data.repository.question.QuestionRepository
 import com.killjoy.data.repository.user.IUserRepository
@@ -14,8 +16,6 @@ import com.killjoy.data.repository.user.UserRepository
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.koin.dsl.module
-import java.net.IDN
-import java.net.URI
 
 val databaseModule = module {
 
@@ -58,6 +58,10 @@ val repositoryModule = module {
 
     single<IDonationRepository> {
         DonationRepository(get())
+    }
+
+    single<INoteRepository> {
+        NoteRepository( get() )
     }
 
 }

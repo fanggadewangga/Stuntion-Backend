@@ -3,6 +3,7 @@ package com.killjoy.plugins
 import com.killjoy.route.article.ArticleRoute
 import com.killjoy.route.donation.DonationRoute
 import com.killjoy.route.expert.ExpertRoute
+import com.killjoy.route.note.NoteRoute
 import com.killjoy.route.question.QuestionRoute
 import com.killjoy.route.user.UserRoute
 import io.ktor.routing.*
@@ -20,6 +21,7 @@ fun Application.configureRouting() {
     val questionRoute by inject<QuestionRoute>()
     val userRoute by inject<UserRoute>()
     val donationRoute by inject<DonationRoute>()
+    val noteRoute by inject<NoteRoute>()
 
     routing {
         get("/") {
@@ -35,5 +37,6 @@ fun Application.configureRouting() {
         questionRoute.initQuestionRoute(this)
         userRoute.initUserRoute(this)
         donationRoute.initDonationRoute(this)
+        noteRoute.initNoteRoute(this)
     }
 }
