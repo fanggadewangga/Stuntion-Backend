@@ -1,4 +1,4 @@
-@file:OptIn(KtorExperimentalLocationsAPI::class)
+@file:OptIn(KtorExperimentalLocationsAPI::class, KtorExperimentalLocationsAPI::class)
 
 package com.killjoy.route.note
 

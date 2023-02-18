@@ -11,6 +11,8 @@ import com.killjoy.data.repository.note.INoteRepository
 import com.killjoy.data.repository.note.NoteRepository
 import com.killjoy.data.repository.question.IQuestionRepository
 import com.killjoy.data.repository.question.QuestionRepository
+import com.killjoy.data.repository.task.ITaskRepository
+import com.killjoy.data.repository.task.TaskRepository
 import com.killjoy.data.repository.user.IUserRepository
 import com.killjoy.data.repository.user.UserRepository
 import com.zaxxer.hikari.HikariConfig
@@ -61,7 +63,10 @@ val repositoryModule = module {
     }
 
     single<INoteRepository> {
-        NoteRepository( get() )
+        NoteRepository(get())
     }
 
+    single<ITaskRepository> {
+        TaskRepository(get())
+    }
 }

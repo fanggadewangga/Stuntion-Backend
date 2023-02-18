@@ -8,7 +8,7 @@ class UserRouteLocation {
 
         // POST
         const val POST_USER = USER
-        private const val SELECTED_USER = "$USER/{uid}"
+        const val SELECTED_USER = "$USER/{uid}"
 
         // GET
         const val DETAIL_USER = SELECTED_USER

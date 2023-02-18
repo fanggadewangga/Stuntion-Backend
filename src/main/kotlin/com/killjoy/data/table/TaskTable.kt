@@ -8,7 +8,9 @@ object TaskTable : Table() {
 
     val taskId = varchar("task_id", 128)
     val task = varchar("task", 128)
-    val done = bool("done")
+    val material = varchar("material", 128)
+    val lowerAgeLimit = double("lower_age_limit")
+    val upperAgeLimit = double("upper_age_limit")
 
     override val primaryKey = PrimaryKey(taskId)
 }

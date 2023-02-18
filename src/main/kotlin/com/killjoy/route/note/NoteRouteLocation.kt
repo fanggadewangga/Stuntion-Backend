@@ -2,12 +2,11 @@
 
 package com.killjoy.route.note
 
+import com.killjoy.route.user.UserRouteLocation.Companion.SELECTED_USER
 import io.ktor.locations.*
 
 sealed class NoteRouteLocation {
     companion object {
-        private const val USER = "/user"
-        private const val SELECTED_USER = "${USER}/{uid}"
         private const val NOTE = "$SELECTED_USER/note"
 
         // GET (all notes by user)

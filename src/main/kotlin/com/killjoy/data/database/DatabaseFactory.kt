@@ -30,8 +30,9 @@ class DatabaseFactory(
                 ExpertWorkplaceTable,
                 QuestionCategoryTable,
                 ExpertEducationTable,
-                NoteTaskTable,
-                UserNoteTable
+                UserNoteTable,
+                TaskInstructionTable,
+                UserTaskTable
             )
             tables.forEach { table ->
                 SchemaUtils.create(table)
