@@ -1,3 +1,5 @@
+@file:OptIn(KtorExperimentalLocationsAPI::class)
+
 package com.killjoy.route.donation
 
 import com.killjoy.data.repository.donation.IDonationRepository

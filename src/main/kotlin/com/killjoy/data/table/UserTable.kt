@@ -13,6 +13,7 @@ object UserTable : Table() {
     val gender = varchar("gender", 24).nullable()
     val avatarUrl = varchar("avatar_url", 512).nullable()
     val xp = integer("xp")
+    val level = integer("level")
 
     override val primaryKey = PrimaryKey(uid)
 }

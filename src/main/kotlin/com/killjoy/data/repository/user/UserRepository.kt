@@ -19,6 +19,7 @@ class UserRepository(private val dbFactory: DatabaseFactory) : IUserRepository {
                 it[email] = body.email
                 it[name] = "Anonymous"
                 it[xp] = 0
+                it[level] = 1
             }
         }
     }
@@ -38,6 +39,24 @@ class UserRepository(private val dbFactory: DatabaseFactory) : IUserRepository {
                 it[birthDate] = body.birthDate
                 it[gender] = body.gender
                 it[avatarUrl] = body.avatarUrl
+            }
+        }
+    }
+
+    override suspend fun updateUserLevel(uid: String) {
+        dbFactory.dbQuery {
+            val currentLevel = UserTable.select { UserTable.uid.eq(uid) }
+                .firstNotNullOf { it[UserTable.level] }
+            UserTable.update(where = { UserTable.uid eq uid }) {
+                it[this.level] = currentLevel.plus(1)
+            }
+        }
+    }
+
+    override suspend fun updateUserAvatarUrl(uid: String, avatarUrl: String) {
+        dbFactory.dbQuery {
+            UserTable.update(where = { UserTable.uid eq uid }) {
+                it[this.avatarUrl] = avatarUrl
             }
         }
     }

@@ -22,5 +22,8 @@ data class UserResponse(
     val avatarUrl: String?,
 
     @field:SerializedName("xp")
-    val xp: Int
+    val xp: Int,
+
+    @field:SerializedName("level")
+    val level: Int,
 )

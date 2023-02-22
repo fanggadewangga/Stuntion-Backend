@@ -3,6 +3,7 @@
 package com.killjoy.route.user
 
 import com.killjoy.data.repository.user.IUserRepository
+import com.killjoy.model.user.UserAvatarBody
 import com.killjoy.model.user.UserBody
 import com.killjoy.model.user.UserGeneralInformationBody
 import com.killjoy.route.RouteResponseHelper.generalException
@@ -13,6 +14,7 @@ import io.ktor.locations.post
 import io.ktor.locations.put
 import io.ktor.request.*
 import io.ktor.routing.*
+import java.net.URL
 
 class UserRoute(
     private val repository: IUserRepository
@@ -62,11 +64,44 @@ class UserRoute(
         }
     }
 
+    private fun Route.updateUserLevel() {
+        put<UserRouteLocation.UserUpdateLevel> {
+            val uid = try {
+                call.parameters["uid"]
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@put
+            }
+            call.generalSuccess { repository.updateUserLevel(uid!!) }
+        }
+    }
+
+    private fun Route.updateUserAvatar() {
+        put<UserRouteLocation.UserUpdateAvatar> {
+            val uid = try {
+                call.parameters["uid"]
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@put
+            }
+
+            val body = try {
+                call.receive<UserAvatarBody>()
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@put
+            }
+            call.generalSuccess { repository.updateUserAvatarUrl(uid!!, body.avatarUrl) }
+        }
+    }
+
     fun initUserRoute(route: Route) {
         route.apply {
             addNewUser()
             getUserDetail()
             updateUserGeneralInformation()
+            updateUserLevel()
+            updateUserAvatar()
         }
     }
 }

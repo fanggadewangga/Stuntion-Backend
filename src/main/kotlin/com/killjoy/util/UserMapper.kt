@@ -11,5 +11,6 @@ fun ResultRow.mapRowToUserResponse() = UserResponse(
     birthDate = this[UserTable.birthDate],
     gender = this[UserTable.gender],
     avatarUrl = this[UserTable.avatarUrl],
-    xp = this[UserTable.xp]
+    xp = this[UserTable.xp],
+    level = this[UserTable.level],
 )

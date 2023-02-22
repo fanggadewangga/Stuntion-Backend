@@ -16,6 +16,8 @@ class UserRouteLocation {
         // UPDATE
         const val UPDATE_USER = SELECTED_USER
         private const val UPDATE_USER_GENERAL_INFORMATION = "$UPDATE_USER/general"
+        private const val UPDATE_USER_LEVEL = "$UPDATE_USER/level"
+        private const val UPDATE_USER_AVATAR = "$UPDATE_USER/avatar"
     }
 
     @Location(POST_USER)
@@ -26,5 +28,11 @@ class UserRouteLocation {
 
     @Location(UPDATE_USER_GENERAL_INFORMATION)
     data class UserUpdateGeneralInformationRoute(val uid: String)
+
+    @Location(UPDATE_USER_LEVEL)
+    data class UserUpdateLevel(val uid: String)
+
+    @Location(UPDATE_USER_AVATAR)
+    data class UserUpdateAvatar(val uid: String)
 
 }
