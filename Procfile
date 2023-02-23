@@ -1,1 +1,1 @@
-web: build/install/stuntion-backend/bin/stuntion-backend
+web: build/install/Stuntion-Backend/bin/Stuntion-Backend
