@@ -1,16 +1,16 @@
 package com.killjoy.util
 
-import com.killjoy.data.table.*
-import com.killjoy.model.expert.ExpertCategory
+import com.killjoy.data.table.ExpertTable
+import com.killjoy.data.table.QuestionCategoryTable
+import com.killjoy.data.table.QuestionTable
+import com.killjoy.data.table.UserTable
+import com.killjoy.model.expert.ExpertResponse
 import com.killjoy.model.question.QuestionCategory
 import com.killjoy.model.question.QuestionLiteResponse
 import com.killjoy.model.question.QuestionResponse
 import org.jetbrains.exposed.sql.ResultRow
 
-fun ResultRow.mapRowToQuestionResponse(
-    categories: List<QuestionCategory>,
-    expertCategory: List<ExpertCategory>?,
-) = QuestionResponse(
+fun ResultRow.mapRowToQuestionResponse(expert: ExpertResponse) = QuestionResponse(
     questionId = this[QuestionTable.questionId],
     title = this[QuestionTable.title],
     question = this[QuestionTable.question],
@@ -18,13 +18,11 @@ fun ResultRow.mapRowToQuestionResponse(
     timestamp = this[QuestionTable.timestamp],
     userName = (if (this[QuestionTable.isAnonymous]) "Anonymous" else this[UserTable.name])!!,
     userAvatarUrl = this[UserTable.avatarUrl]!!,
-    expertName = this[ExpertTable.name],
-    expertAvatarUrl = this[ExpertTable.avatarUrl],
-    expertExperience = this[ExpertTable.experienceYear],
-    expertRating = this[ExpertTable.rating],
-    expertCategories = expertCategory
-        ?.filter { it.expertId == this[ExpertTable.expertId] }
-        ?.map { it.category },
+    expertName = expert.name,
+    expertAvatarUrl = expert.avatarUrl,
+    expertExperience = expert.experienceYear,
+    expertRating = expert.rating,
+    expertCategories = expert.categories,
 )
 
 fun ResultRow.mapRowToQuestionLiteResponse(

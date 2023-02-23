@@ -2,12 +2,14 @@ package com.killjoy.route.question
 
 import com.killjoy.data.repository.question.IQuestionRepository
 import com.killjoy.model.question.QuestionBody
+import com.killjoy.model.question.QuestionExpertAnswerBody
 import com.killjoy.route.RouteResponseHelper.generalException
 import com.killjoy.route.RouteResponseHelper.generalListSuccess
 import com.killjoy.route.RouteResponseHelper.generalSuccess
 import io.ktor.application.*
 import io.ktor.locations.*
 import io.ktor.locations.post
+import io.ktor.locations.put
 import io.ktor.request.*
 import io.ktor.routing.*
 
@@ -55,9 +57,29 @@ class QuestionRoute(
         }
     }
 
+    private fun Route.addQuestionoExpertAnswer() {
+        put<QuestionRouteLocation.QuestionUpdateExpertAnswer> {
+            val questionId = try {
+                call.parameters["questionId"]
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@put
+            }
+            val body = try {
+                call.receive<QuestionExpertAnswerBody>()
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@put
+            }
+
+            call.generalSuccess { repository.addExpertAnswer(questionId!!, body) }
+        }
+    }
+
     fun initQuestionRoute(route: Route) {
         route.apply {
             addNewQuestion()
+            addQuestionoExpertAnswer()
             getAllQuestions()
             getQuestionDetail()
         }

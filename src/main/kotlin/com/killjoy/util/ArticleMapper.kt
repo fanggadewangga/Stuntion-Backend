@@ -11,7 +11,7 @@ fun ResultRow.mapRowToArticleResponse() = ArticleResponse(
     articleId = this[ArticleTable.articleId],
     title = this[ArticleTable.title],
     description = this[ArticleTable.description],
-    imageUrl = this[ArticleTable.imageUrl],
+    videoUrl = this[ArticleTable.videoUrl],
     reviewer = this[ArticleTable.reviewer],
     timestamp = this[ArticleTable.timestamp],
 )
@@ -22,7 +22,7 @@ fun ResultRow.mapRowToArticleLiteResponse(
     articleId = this[ArticleTable.articleId],
     title = this[ArticleTable.title],
     description = this[ArticleTable.description],
-    imageUrl = this[ArticleTable.imageUrl],
+    videoUrl = this[ArticleTable.videoUrl],
     categories = categories
         .filter { it.articleId == this[ArticleTable.articleId] }
         .map { it.category }

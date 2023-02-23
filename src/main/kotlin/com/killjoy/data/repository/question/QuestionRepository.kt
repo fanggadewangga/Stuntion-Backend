@@ -4,11 +4,11 @@ import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import com.killjoy.data.database.DatabaseFactory
 import com.killjoy.data.table.*
 import com.killjoy.model.question.QuestionBody
+import com.killjoy.model.question.QuestionExpertAnswerBody
 import com.killjoy.model.question.QuestionLiteResponse
 import com.killjoy.model.question.QuestionResponse
 import com.killjoy.util.*
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.like
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,6 +36,15 @@ class QuestionRepository(private val dbFactory: DatabaseFactory) : IQuestionRepo
                     it[questionId] = idCreated
                     it[this.category] = category
                 }
+            }
+        }
+    }
+
+    override suspend fun addExpertAnswer(questionId: String, body: QuestionExpertAnswerBody) {
+        dbFactory.dbQuery {
+            QuestionTable.update({ QuestionTable.questionId.eq(questionId) }) {
+                it[expertId] = body.expertId
+                it[answer] = body.answer
             }
         }
     }
@@ -98,7 +107,31 @@ class QuestionRepository(private val dbFactory: DatabaseFactory) : IQuestionRepo
             .mapNotNull { it.mapRowToQuestionLiteResponse(listOfQuestionCategory) }
     }
 
-    override suspend fun getQuestionDetail(questionId: String): QuestionResponse {
-        TODO("Not yet implemented")
+    override suspend fun getQuestionDetail(questionId: String): QuestionResponse = dbFactory.dbQuery {
+        val expertId = QuestionTable.select { QuestionTable.questionId.eq(questionId) }
+            .firstNotNullOf { it[QuestionTable.expertId] }
+        val expertCategory = ExpertCategoryTable.select { ExpertCategoryTable.expertId.eq(expertId) }
+            .mapNotNull { it.mapRowToExpertCategory() }
+        val workplaces = ExpertWorkplaceTable.select { ExpertWorkplaceTable.expertId eq expertId }
+            .mapNotNull { it.mapRowToExpertWorkplace() }
+        val educations = ExpertEducationTable.select { ExpertEducationTable.expertId eq expertId }
+            .mapNotNull { it.mapRowToExpertEducation() }
+        val expert = ExpertTable.select { ExpertTable.expertId eq expertId }
+            .firstNotNullOf { it.mapRowToExpertResponse(expertCategory, workplaces, educations) }
+
+        QuestionTable
+            .join(UserTable, JoinType.INNER) { QuestionTable.uid.eq(UserTable.uid) }
+            .slice(
+                QuestionTable.questionId,
+                QuestionTable.question,
+                QuestionTable.title,
+                QuestionTable.answer,
+                QuestionTable.timestamp,
+                QuestionTable.isAnonymous,
+                UserTable.name,
+                UserTable.avatarUrl,
+            )
+            .select { QuestionTable.questionId eq questionId }
+            .firstNotNullOf { it.mapRowToQuestionResponse(expert) }
     }
 }

@@ -23,4 +23,7 @@ sealed class QuestionRouteLocation {
 
     @Location(DETAIL_QUESTION)
     data class QuestionGetDetailRoute(val questionId: String)
+
+    @Location(DETAIL_QUESTION)
+    data class QuestionUpdateExpertAnswer(val questionId: String)
 }

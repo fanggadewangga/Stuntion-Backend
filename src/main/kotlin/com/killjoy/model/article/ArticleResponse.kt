@@ -13,8 +13,8 @@ data class ArticleResponse(
     @field:SerializedName("description")
     val description: String,
 
-    @field:SerializedName("image_url")
-    val imageUrl: String,
+    @field:SerializedName("video_url")
+    val videoUrl: String,
 
     @field:SerializedName("reviewer")
     val reviewer: String,

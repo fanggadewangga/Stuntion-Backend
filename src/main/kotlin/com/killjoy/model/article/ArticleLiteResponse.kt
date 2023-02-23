@@ -12,8 +12,8 @@ data class ArticleLiteResponse(
     @field:SerializedName("description")
     val description: String,
 
-    @field:SerializedName("image_url")
-    val imageUrl: String,
+    @field:SerializedName("video_url")
+    val videoUrl: String,
 
     @field:SerializedName("categories")
     val categories: List<String>,

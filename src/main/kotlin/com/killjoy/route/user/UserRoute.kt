@@ -14,7 +14,6 @@ import io.ktor.locations.post
 import io.ktor.locations.put
 import io.ktor.request.*
 import io.ktor.routing.*
-import java.net.URL
 
 class UserRoute(
     private val repository: IUserRepository
