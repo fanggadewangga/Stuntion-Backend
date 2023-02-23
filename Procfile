@@ -1,0 +1,1 @@
+web: build/install/stuntion-backend/bin/stuntion-backend
