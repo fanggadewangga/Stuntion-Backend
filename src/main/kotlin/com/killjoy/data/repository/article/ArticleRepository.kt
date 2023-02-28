@@ -31,6 +31,7 @@ class ArticleRepository(private val dbFactory: DatabaseFactory) : IArticleReposi
                 table[title] = body.title
                 table[description] = body.description
                 table[videoUrl] = body.videoUrl
+                table[imageUrl] = body.imageUrl
                 table[reviewer] = body.reviewer
                 table[timestamp] = dateCreated
             }

@@ -13,6 +13,9 @@ data class ArticleBody(
     @field:SerializedName("video_url")
     val videoUrl: String,
 
+    @field:SerializedName("image_url")
+    val imageUrl: String,
+
     @field:SerializedName("reviewer")
     val reviewer: String,
 

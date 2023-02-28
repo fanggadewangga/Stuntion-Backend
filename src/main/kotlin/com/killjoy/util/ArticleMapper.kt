@@ -23,6 +23,7 @@ fun ResultRow.mapRowToArticleLiteResponse(
     title = this[ArticleTable.title],
     description = this[ArticleTable.description],
     videoUrl = this[ArticleTable.videoUrl],
+    imageUrl = this[ArticleTable.imageUrl],
     categories = categories
         .filter { it.articleId == this[ArticleTable.articleId] }
         .map { it.category }
