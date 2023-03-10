@@ -11,7 +11,7 @@ object UserTable : Table() {
     val name = varchar("name", 128).nullable()
     val birthDate = varchar("birth_date", 64).nullable()
     val gender = varchar("gender", 24).nullable()
-    val avatarUrl = varchar("avatar_url", 512).nullable()
+    val avatarUrl = varchar("avatar_url", 1024).nullable()
     val xp = integer("xp")
     val level = integer("level")
 

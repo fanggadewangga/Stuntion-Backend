@@ -8,9 +8,9 @@ object ArticleTable : Table() {
 
     val articleId = varchar("article_id", 128)
     val title = varchar("title", 128)
-    val description = varchar("description", 1024)
-    val videoUrl = varchar("video_url", 128)
-    val imageUrl = varchar("image_url", 128)
+    val description = varchar("description", 2048)
+    val videoUrl = varchar("video_url", 1024)
+    val imageUrl = varchar("image_url", 1024)
     val reviewer = varchar("reviewer", 128)
     val timestamp = varchar("timestamp", 64)
 

@@ -8,7 +8,7 @@ object ExpertTable : Table() {
 
     val expertId = varchar("expert_id", 128)
     val name = varchar("name", 128)
-    val avatarUrl = varchar("avatar_url", 128)
+    val avatarUrl = varchar("avatar_url", 1024)
     val experienceYear = integer("experience_year")
     val str = varchar("str", 128)
     val fee = integer("fee")

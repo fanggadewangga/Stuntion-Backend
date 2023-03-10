@@ -44,6 +44,18 @@ val databaseModule = module {
 
             validate()
         }
+        /*factory {
+            val config = HikariConfig()
+            config.apply {
+                driverClassName = System.getenv("JDBC_DRIVER")
+                jdbcUrl = System.getenv("DATABASE_URL")
+                maximumPoolSize = 6
+                isAutoCommit = false
+                transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+                validate()
+            }
+            HikariDataSource(config)
+        }*/
         HikariDataSource(config)
     }
 }
