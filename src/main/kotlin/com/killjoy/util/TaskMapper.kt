@@ -15,12 +15,14 @@ fun ResultRow.mapRowToTaskListResponse(
 
 fun ResultRow.mapRowToTaskResponse(
     listOfInstructions: List<String>,
-) = TaskResponse(
-    taskId = this[TaskTable.taskId],
-    task = this[TaskTable.task],
-    material = this[TaskTable.material],
-    imageUrl = this[TaskTable.imageUrl],
-    lowerAgeLimit = this[TaskTable.lowerAgeLimit],
-    upperAgeLimit = this[TaskTable.upperAgeLimit],
-    instructions = listOfInstructions,
-)
+) = this[TaskTable.imageUrl]?.let {
+    TaskResponse(
+        taskId = this[TaskTable.taskId],
+        task = this[TaskTable.task],
+        material = this[TaskTable.material],
+        imageUrl = it,
+        lowerAgeLimit = this[TaskTable.lowerAgeLimit],
+        upperAgeLimit = this[TaskTable.upperAgeLimit],
+        instructions = listOfInstructions,
+    )
+}

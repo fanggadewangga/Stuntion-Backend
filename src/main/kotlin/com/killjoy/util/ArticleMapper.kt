@@ -18,16 +18,18 @@ fun ResultRow.mapRowToArticleResponse() = ArticleResponse(
 
 fun ResultRow.mapRowToArticleLiteResponse(
     categories: List<ArticleCategory>
-) = ArticleLiteResponse(
-    articleId = this[ArticleTable.articleId],
-    title = this[ArticleTable.title],
-    description = this[ArticleTable.description],
-    videoUrl = this[ArticleTable.videoUrl],
-    imageUrl = this[ArticleTable.imageUrl],
-    categories = categories
-        .filter { it.articleId == this[ArticleTable.articleId] }
-        .map { it.category }
-)
+) = this[ArticleTable.imageUrl]?.let {
+    ArticleLiteResponse(
+        articleId = this[ArticleTable.articleId],
+        title = this[ArticleTable.title],
+        description = this[ArticleTable.description],
+        videoUrl = this[ArticleTable.videoUrl],
+        imageUrl = it,
+        categories = categories
+            .filter { it.articleId == this[ArticleTable.articleId] }
+            .map { it.category }
+    )
+}
 
 fun ResultRow.mapRowToArticleCategory() = ArticleCategory(
     articleId = this[ArticleCategoryTable.articleId],
