@@ -19,6 +19,7 @@ fun ResultRow.mapRowToTaskResponse(
     taskId = this[TaskTable.taskId],
     task = this[TaskTable.task],
     material = this[TaskTable.material],
+    imageUrl = this[TaskTable.imageUrl],
     lowerAgeLimit = this[TaskTable.lowerAgeLimit],
     upperAgeLimit = this[TaskTable.upperAgeLimit],
     instructions = listOfInstructions,

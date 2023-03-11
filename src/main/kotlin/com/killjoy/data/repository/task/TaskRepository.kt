@@ -22,6 +22,7 @@ class TaskRepository(private val dbFactory: DatabaseFactory) : ITaskRepository {
                 table[taskId] = idCreated
                 table[task] = body.task
                 table[material] = body.material
+                table[imageUrl] = body.imageUrl
                 table[lowerAgeLimit] = body.lowerAgeLimit
                 table[upperAgeLimit] = body.upperAgeLimit
             }

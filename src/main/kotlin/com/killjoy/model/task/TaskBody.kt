@@ -10,6 +10,9 @@ data class TaskBody(
     @field:SerializedName("material")
     val material: String,
 
+    @field:SerializedName("image_url")
+    val imageUrl: String,
+
     @field:SerializedName("lower_age_limit")
     val lowerAgeLimit: Double,
 
