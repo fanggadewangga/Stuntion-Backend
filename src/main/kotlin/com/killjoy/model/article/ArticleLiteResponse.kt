@@ -20,4 +20,7 @@ data class ArticleLiteResponse(
 
     @field:SerializedName("categories")
     val categories: List<String>,
+
+    @field:SerializedName("timestamp")
+    val timestamp: String,
 )

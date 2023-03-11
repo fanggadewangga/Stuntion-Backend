@@ -27,7 +27,8 @@ fun ResultRow.mapRowToArticleLiteResponse(
         imageUrl = it,
         categories = categories
             .filter { it.articleId == this[ArticleTable.articleId] }
-            .map { it.category }
+            .map { it.category },
+        timestamp = this[ArticleTable.timestamp]
     )
 }
 
