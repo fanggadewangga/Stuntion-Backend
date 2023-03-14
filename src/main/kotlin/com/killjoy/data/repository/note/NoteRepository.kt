@@ -27,11 +27,16 @@ class NoteRepository(private val dbFactory: DatabaseFactory) : INoteRepository {
                 table[this.uid] = uid
                 table[name] = body.childName
                 table[gender] = body.gender
+                table[birthDay] = body.birthday
                 table[ageYear] = body.ageYear
                 table[ageMonth] = body.ageMonth
                 table[ageDay] = body.ageDay
                 table[height] = body.height
+                table[heightDescription] = body.heightDescription
                 table[weight] = body.weight
+                table[weightDescription] = body.weightDescription
+                table[idealHeight] = body.idealHeight
+                table[idealWeight] = body.idealWeight
                 table[timestamp] = dateCreated
             }
 
