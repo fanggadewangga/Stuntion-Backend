@@ -22,6 +22,6 @@ Stuntion is an Android-based application that focuses on the prevention, treatme
 - [Fa'iq Arya Dewangga (Hacker)](https://www.linkedin.com/in/faiqaryadewangga/)
 - [Avidhyana Sukma Valenta (Hustler & Hipster)](https://www.linkedin.com/in/avidhyana/)
 
-## Back-End Repository
+## Front-End Repository
 [Stuntion Front-End](https://github.com/fanggadewangga/Stuntion)
 
