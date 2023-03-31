@@ -18,6 +18,7 @@ fun ResultRow.mapRowToQuestionResponse(expert: ExpertResponse) = QuestionRespons
     timestamp = this[QuestionTable.timestamp],
     userName = (if (this[QuestionTable.isAnonymous]) "Anonymous" else this[UserTable.name])!!,
     userAvatarUrl = this[UserTable.avatarUrl]!!,
+    expertId = expert.expertId,
     expertName = expert.name,
     expertAvatarUrl = expert.avatarUrl,
     expertExperience = expert.experienceYear,
