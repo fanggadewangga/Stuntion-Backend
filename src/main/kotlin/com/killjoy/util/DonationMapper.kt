@@ -10,6 +10,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Period
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 
 fun ResultRow.mapRowToDonationLiteResponse() = DonationLiteResponse(
@@ -19,7 +20,7 @@ fun ResultRow.mapRowToDonationLiteResponse() = DonationLiteResponse(
     imageUrl = this[DonationTable.imageUrl],
     currentValue = this[DonationTable.currentValue],
     maxValue = this[DonationTable.maxValue],
-    dayRemaining = Period.between(
+    dayRemaining = ChronoUnit.DAYS.between(
         LocalDate.parse(
             DateTimeFormatter.ofPattern(DATE_FORMAT).format(LocalDateTime.now()),
             DateTimeFormatter.ofPattern(DATE_FORMAT)
@@ -27,7 +28,7 @@ fun ResultRow.mapRowToDonationLiteResponse() = DonationLiteResponse(
             this[DonationTable.deadline_at],
             DateTimeFormatter.ofPattern(DATE_FORMAT)
         )
-    ).days,
+    ).toInt(),
     fee = this[DonationTable.fee],
     lat = this[DonationTable.lat],
     lon = this[DonationTable.lon]
