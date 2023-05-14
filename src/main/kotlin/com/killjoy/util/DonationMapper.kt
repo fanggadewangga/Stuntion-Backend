@@ -10,17 +10,10 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Period
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 
 
-fun ResultRow.mapRowToDonationLiteResponse() = DonationLiteResponse(
-    donationId = this[DonationTable.donationId],
-    title = this[DonationTable.title],
-    address = this[DonationTable.address],
-    imageUrl = this[DonationTable.imageUrl],
-    currentValue = this[DonationTable.currentValue],
-    maxValue = this[DonationTable.maxValue],
-    dayRemaining = ChronoUnit.DAYS.between(
+fun ResultRow.mapRowToDonationLiteResponse() {
+    val periodBetween = Period.between(
         LocalDate.parse(
             DateTimeFormatter.ofPattern(DATE_FORMAT).format(LocalDateTime.now()),
             DateTimeFormatter.ofPattern(DATE_FORMAT)
@@ -28,11 +21,21 @@ fun ResultRow.mapRowToDonationLiteResponse() = DonationLiteResponse(
             this[DonationTable.deadline_at],
             DateTimeFormatter.ofPattern(DATE_FORMAT)
         )
-    ).toInt(),
-    fee = this[DonationTable.fee],
-    lat = this[DonationTable.lat],
-    lon = this[DonationTable.lon]
-)
+    )
+    val dayRemaining = periodBetween.months * 30 + periodBetween.days
+    DonationLiteResponse(
+        donationId = this[DonationTable.donationId],
+        title = this[DonationTable.title],
+        address = this[DonationTable.address],
+        imageUrl = this[DonationTable.imageUrl],
+        currentValue = this[DonationTable.currentValue],
+        maxValue = this[DonationTable.maxValue],
+        dayRemaining = dayRemaining,
+        fee = this[DonationTable.fee],
+        lat = this[DonationTable.lat],
+        lon = this[DonationTable.lon]
+    )
+}
 
 fun ResultRow.mapRowToDonationResponse() = DonationResponse(
     donationId = this[DonationTable.donationId],
