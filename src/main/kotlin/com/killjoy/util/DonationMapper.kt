@@ -12,7 +12,7 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 
 
-fun ResultRow.mapRowToDonationLiteResponse() {
+fun ResultRow.mapRowToDonationLiteResponse(): DonationLiteResponse {
     val periodBetween = Period.between(
         LocalDate.parse(
             DateTimeFormatter.ofPattern(DATE_FORMAT).format(LocalDateTime.now()),
@@ -23,7 +23,7 @@ fun ResultRow.mapRowToDonationLiteResponse() {
         )
     )
     val dayRemaining = periodBetween.months * 30 + periodBetween.days
-    DonationLiteResponse(
+    return DonationLiteResponse(
         donationId = this[DonationTable.donationId],
         title = this[DonationTable.title],
         address = this[DonationTable.address],
