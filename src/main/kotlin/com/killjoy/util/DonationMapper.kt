@@ -37,30 +37,36 @@ fun ResultRow.mapRowToDonationLiteResponse(): DonationLiteResponse {
     )
 }
 
-fun ResultRow.mapRowToDonationResponse() = DonationResponse(
-    donationId = this[DonationTable.donationId],
-    name = this[UserTable.name]!!,
-    phone = this[DonationTable.phone],
-    address = this[DonationTable.address],
-    userAvatarUrl = this[UserTable.avatarUrl]!!,
-    title = this[DonationTable.title],
-    story = this[DonationTable.story],
-    imageUrl = this[DonationTable.imageUrl],
-    currentValue = this[DonationTable.currentValue],
-    maxValue = this[DonationTable.maxValue],
-    uploadedAt = this[DonationTable.uploaded_at],
-    deadlineAt = this[DonationTable.deadline_at],
-    dayRemaining = Period.between(
+fun ResultRow.mapRowToDonationResponse(): DonationResponse {
+    val periodBetween = Period.between(
         LocalDate.parse(
-            this[DonationTable.uploaded_at],
+            DateTimeFormatter.ofPattern(DATE_FORMAT).format(LocalDateTime.now()),
             DateTimeFormatter.ofPattern(DATE_FORMAT)
         ), LocalDate.parse(
             this[DonationTable.deadline_at],
             DateTimeFormatter.ofPattern(DATE_FORMAT)
         )
-    ).days,
-    fee = this[DonationTable.fee],
-    done = this[DonationTable.done],
-    lat = this[DonationTable.lat],
-    lon = this[DonationTable.lon]
-)
+    )
+    val dayRemaining = periodBetween.months * 30 + periodBetween.days
+    val isDone = dayRemaining < 0
+
+    return DonationResponse(
+        donationId = this[DonationTable.donationId],
+        name = this[UserTable.name]!!,
+        phone = this[DonationTable.phone],
+        address = this[DonationTable.address],
+        userAvatarUrl = this[UserTable.avatarUrl]!!,
+        title = this[DonationTable.title],
+        story = this[DonationTable.story],
+        imageUrl = this[DonationTable.imageUrl],
+        currentValue = this[DonationTable.currentValue],
+        maxValue = this[DonationTable.maxValue],
+        uploadedAt = this[DonationTable.uploaded_at],
+        deadlineAt = this[DonationTable.deadline_at],
+        dayRemaining = dayRemaining,
+        fee = this[DonationTable.fee],
+        done = isDone,
+        lat = this[DonationTable.lat],
+        lon = this[DonationTable.lon]
+    )
+}

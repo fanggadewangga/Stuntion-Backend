@@ -58,6 +58,7 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
         dbFactory.dbQuery {
             DonationTable.selectAll()
                 .mapNotNull { it.mapRowToDonationLiteResponse() }
+                .filter { it.dayRemaining >= 0 }
         }
 
     override suspend fun searchDonation(query: String): List<DonationLiteResponse> =
@@ -68,6 +69,7 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
                 .mapNotNull {
                     it.mapRowToDonationLiteResponse()
                 }
+                .filter { it.dayRemaining >= 0 }
         }
 
     override suspend fun getDonationDetail(donationId: String): DonationResponse = dbFactory.dbQuery {
