@@ -33,7 +33,7 @@ val databaseModule = module {
 
     factory {
         val config = HikariConfig()
-        /*config.apply {
+        config.apply {
             driverClassName = System.getenv("JDBC_DRIVER")
             //jdbcUrl = System.getenv("DATABASE_URL")
             maximumPoolSize = 6
@@ -48,15 +48,15 @@ val databaseModule = module {
                 "jdbc:postgresql://" + uri.host + ":" + uri.port + uri.path + "?sslmode=require" + "&user=$username&password=$password"
 
             validate()
-        }*/
-        config.apply {
+        }
+        /*config.apply {
             driverClassName = System.getenv("JDBC_DRIVER")
             jdbcUrl = System.getenv("DATABASE_URL")
             maximumPoolSize = 6
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
             validate()
-        }
+        }*/
         HikariDataSource(config)
     }
 }
