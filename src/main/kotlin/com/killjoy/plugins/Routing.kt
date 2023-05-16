@@ -4,15 +4,14 @@ import com.killjoy.route.article.ArticleRoute
 import com.killjoy.route.donation.DonationRoute
 import com.killjoy.route.expert.ExpertRoute
 import com.killjoy.route.note.NoteRoute
+import com.killjoy.route.payment.PaymentRoute
 import com.killjoy.route.question.QuestionRoute
 import com.killjoy.route.task.TaskRoute
 import com.killjoy.route.user.UserRoute
-import io.ktor.routing.*
-import io.ktor.http.*
-import io.ktor.locations.*
+import com.killjoy.route.voucher.VoucherRoute
 import io.ktor.application.*
 import io.ktor.response.*
-import io.ktor.request.*
+import io.ktor.routing.*
 import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() {
@@ -24,6 +23,8 @@ fun Application.configureRouting() {
     val donationRoute by inject<DonationRoute>()
     val noteRoute by inject<NoteRoute>()
     val taskRoute by inject<TaskRoute>()
+    val voucherRoute by inject<VoucherRoute>()
+    val paymentRoute by inject<PaymentRoute>()
 
     routing {
         get("/") {
@@ -41,5 +42,7 @@ fun Application.configureRouting() {
         donationRoute.initDonationRoute(this)
         noteRoute.initNoteRoute(this)
         taskRoute.initTaskRoute(this)
+        voucherRoute.initVoucherRoute(this)
+        paymentRoute.initPaymentRoute(this)
     }
 }

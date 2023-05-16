@@ -9,16 +9,21 @@ import com.killjoy.data.repository.expert.ExpertRepository
 import com.killjoy.data.repository.expert.IExpertRepository
 import com.killjoy.data.repository.note.INoteRepository
 import com.killjoy.data.repository.note.NoteRepository
+import com.killjoy.data.repository.payment.IPaymentRepository
+import com.killjoy.data.repository.payment.PaymentRepository
 import com.killjoy.data.repository.question.IQuestionRepository
 import com.killjoy.data.repository.question.QuestionRepository
 import com.killjoy.data.repository.task.ITaskRepository
 import com.killjoy.data.repository.task.TaskRepository
 import com.killjoy.data.repository.user.IUserRepository
 import com.killjoy.data.repository.user.UserRepository
+import com.killjoy.data.repository.voucher.IVoucherRepository
+import com.killjoy.data.repository.voucher.VoucherRepository
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.koin.dsl.module
 import java.net.URI
+import kotlin.math.sin
 
 val databaseModule = module {
 
@@ -28,7 +33,7 @@ val databaseModule = module {
 
     factory {
         val config = HikariConfig()
-        config.apply {
+        /*config.apply {
             driverClassName = System.getenv("JDBC_DRIVER")
             //jdbcUrl = System.getenv("DATABASE_URL")
             maximumPoolSize = 6
@@ -43,15 +48,15 @@ val databaseModule = module {
                 "jdbc:postgresql://" + uri.host + ":" + uri.port + uri.path + "?sslmode=require" + "&user=$username&password=$password"
 
             validate()
-        }
-        /*config.apply {
+        }*/
+        config.apply {
             driverClassName = System.getenv("JDBC_DRIVER")
             jdbcUrl = System.getenv("DATABASE_URL")
             maximumPoolSize = 6
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
             validate()
-        }*/
+        }
         HikariDataSource(config)
     }
 }
@@ -84,5 +89,13 @@ val repositoryModule = module {
 
     single<ITaskRepository> {
         TaskRepository(get())
+    }
+
+    single<IVoucherRepository> {
+        VoucherRepository(get())
+    }
+
+    single<IPaymentRepository> {
+        PaymentRepository(get())
     }
 }

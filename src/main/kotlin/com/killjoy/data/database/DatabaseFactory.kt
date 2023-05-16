@@ -1,13 +1,11 @@
 package com.killjoy.data.database
 
 import com.killjoy.data.table.*
-import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class DatabaseFactory(
@@ -32,7 +30,10 @@ class DatabaseFactory(
                 ExpertEducationTable,
                 UserNoteTable,
                 TaskInstructionTable,
-                UserTaskTable
+                UserTaskTable,
+                PaymentMethodTable,
+                VoucherTable,
+                UserVoucherTable
             )
             tables.forEach { table ->
                 SchemaUtils.create(table)
