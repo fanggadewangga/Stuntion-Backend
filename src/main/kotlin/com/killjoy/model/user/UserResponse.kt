@@ -22,7 +22,7 @@ data class UserResponse(
     val avatarUrl: String?,
 
     @field:SerializedName("balance")
-    val balance: Double?,
+    val balance: Double = 0.0,
 
     @field:SerializedName("xp")
     val xp: Int,
