@@ -10,4 +10,5 @@ interface IUserRepository {
     suspend fun updateUserGeneralInformation(uid: String, body: UserGeneralInformationBody) // clear
     suspend fun updateUserLevel(uid: String) // clear
     suspend fun updateUserAvatarUrl(uid: String, avatarUrl: String) // clear
+    suspend fun updateUserWalletBalance(uid: String, balance: Double) // not clear
 }

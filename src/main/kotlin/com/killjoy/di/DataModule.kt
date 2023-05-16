@@ -23,7 +23,6 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.koin.dsl.module
 import java.net.URI
-import kotlin.math.sin
 
 val databaseModule = module {
 

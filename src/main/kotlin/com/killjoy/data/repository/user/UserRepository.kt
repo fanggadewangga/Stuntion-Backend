@@ -6,6 +6,7 @@ import com.killjoy.model.user.UserBody
 import com.killjoy.model.user.UserGeneralInformationBody
 import com.killjoy.util.mapRowToUserResponse
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.minus
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.plus
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -19,6 +20,7 @@ class UserRepository(private val dbFactory: DatabaseFactory) : IUserRepository {
                 it[email] = body.email
                 it[name] = "Anonymous"
                 it[xp] = 0
+                it[balance] = 0.0
                 it[level] = 1
             }
         }
@@ -57,6 +59,14 @@ class UserRepository(private val dbFactory: DatabaseFactory) : IUserRepository {
         dbFactory.dbQuery {
             UserTable.update(where = { UserTable.uid eq uid }) {
                 it[this.avatarUrl] = avatarUrl
+            }
+        }
+    }
+
+    override suspend fun updateUserWalletBalance(uid: String, balance: Double) {
+        dbFactory.dbQuery {
+            UserTable.update(where = { UserTable.uid eq uid }) {
+                it[this.balance] =  this.balance.plus(balance)
             }
         }
     }

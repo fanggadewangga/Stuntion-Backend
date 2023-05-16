@@ -12,6 +12,7 @@ object UserTable : Table() {
     val birthDate = varchar("birth_date", 64).nullable()
     val gender = varchar("gender", 24).nullable()
     val avatarUrl = varchar("avatar_url", 1024).nullable()
+    val balance = double("balance").nullable()
     val xp = integer("xp")
     val level = integer("level")
 

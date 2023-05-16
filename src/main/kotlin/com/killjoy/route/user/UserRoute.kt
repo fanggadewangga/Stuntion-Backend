@@ -4,6 +4,7 @@ package com.killjoy.route.user
 
 import com.killjoy.data.repository.user.IUserRepository
 import com.killjoy.model.user.UserAvatarBody
+import com.killjoy.model.user.UserBalanceBody
 import com.killjoy.model.user.UserBody
 import com.killjoy.model.user.UserGeneralInformationBody
 import com.killjoy.route.RouteResponseHelper.generalException
@@ -94,6 +95,25 @@ class UserRoute(
         }
     }
 
+    private fun Route.updateUserWallet() {
+        put<UserRouteLocation.UserUpdateWallet> {
+            val uid = try {
+                call.parameters["uid"]
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@put
+            }
+
+            val body = try {
+                call.receive<UserBalanceBody>()
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@put
+            }
+            call.generalSuccess { repository.updateUserWalletBalance(uid!!, body.balance) }
+        }
+    }
+
     fun initUserRoute(route: Route) {
         route.apply {
             addNewUser()
@@ -101,6 +121,7 @@ class UserRoute(
             updateUserGeneralInformation()
             updateUserLevel()
             updateUserAvatar()
+            updateUserWallet()
         }
     }
 }
