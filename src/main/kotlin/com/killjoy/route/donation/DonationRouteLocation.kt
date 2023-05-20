@@ -41,7 +41,7 @@ sealed class DonationRouteLocation {
     data class DonationDeleteRoute(val donationId: String)
 
     @Location(POST_DONATION_DONOR)
-    data class DonationAddDonorRoute(val donationId: String, val uid: String)
+    data class DonationAddDonorRoute(val donationId: String)
 
     @Location(DONATION_DONOR)
     data class DonationGetDonorsRoute(val donationId: String)

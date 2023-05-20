@@ -9,6 +9,6 @@ interface IDonationRepository {
     suspend fun searchDonation(query: String): List<DonationLiteResponse>  // clear
     suspend fun getDonationDetail(donationId: String): DonationResponse // clear
     suspend fun deleteDonation(donationId: String)  // clear
-    suspend fun addNewDonor(body: DonorBody) // not clear
+    suspend fun addNewDonor(body: DonorBody, donationId: String) // not clear
     suspend fun getAllDonors(donationId: String): List<DonorResponse>
 }

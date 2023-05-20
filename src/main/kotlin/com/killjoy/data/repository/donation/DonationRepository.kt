@@ -110,15 +110,21 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
         }
     }
 
-    override suspend fun addNewDonor(body: DonorBody) {
+    override suspend fun addNewDonor(body: DonorBody, donationId: String) {
         val dateObj = Date()
         val df: DateFormat = SimpleDateFormat(DATE_TIME_FORMAT)
         df.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
         val dateCreated = df.format(dateObj)
 
         dbFactory.dbQuery {
+            val currentValue = DonationTable.select { DonationTable.donationId.eq(donationId) }
+                .firstNotNullOf { it[DonationTable.currentValue] }
+            DonationTable.update(where = { DonationTable.donationId eq donationId }) {
+                it[this.currentValue] = currentValue.plus(1)
+            }
+
             DonorTable.insert { table ->
-                table[donationId] = body.donationId
+                table[this.donationId] = donationId
                 table[donorId] = body.uid
                 table[nominal] = body.nominal
                 table[isAnonymous] = body.isAnonymous
@@ -128,12 +134,6 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
     }
 
     override suspend fun getAllDonors(donationId: String): List<DonorResponse> = dbFactory.dbQuery {
-        val currentValue = DonationTable.select { DonationTable.donationId.eq(donationId) }
-            .firstNotNullOf { it[DonationTable.currentValue] }
-        DonationTable.update(where = { DonationTable.donationId eq donationId }) {
-            it[this.currentValue] = currentValue.plus(1)
-        }
-
         DonorTable
             .join(UserTable, JoinType.INNER) { DonorTable.donorId.eq(UserTable.uid) }
             .slice(
@@ -142,7 +142,8 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
                 DonorTable.nominal,
                 DonorTable.isAnonymous,
                 DonorTable.timestamp,
-                UserTable.uid
+                UserTable.name,
+                UserTable.avatarUrl
             )
             .select { DonorTable.donationId.eq(donationId) }
             .mapNotNull { it.mapRowToDonorResponse() }

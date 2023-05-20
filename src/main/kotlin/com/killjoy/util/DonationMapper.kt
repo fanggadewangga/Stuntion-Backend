@@ -87,9 +87,10 @@ fun ResultRow.mapRowToDonorResponse(): DonorResponse {
     val period = periodBetween.months * 30 + periodBetween.days
 
     return DonorResponse(
-        donorName = if (this[DonorTable.isAnonymous]) "User" else this[UserTable.name] ?: "User",
+        donorName = if (this[DonorTable.isAnonymous]) "Nutrition Hero" else this[UserTable.name] ?: "Nutrition Hero",
         nominal = this[DonorTable.nominal],
         timestamp = this[DonorTable.timestamp],
+        avatarUrl = this[UserTable.avatarUrl],
         dayPeriod = period
     )
 }

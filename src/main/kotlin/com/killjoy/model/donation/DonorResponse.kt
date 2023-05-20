@@ -4,14 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class DonorResponse(
     @field:SerializedName("name")
-    val donorName: String,
+    val donorName: String? = "",
 
     @field:SerializedName("nominal")
-    val nominal: Double,
+    val nominal: Double = 0.0,
 
     @field:SerializedName("timestamp")
-    val timestamp: String,
+    val timestamp: String = "",
+
+    @field:SerializedName("avatar_url")
+    val avatarUrl: String? = "",
 
     @field:SerializedName("period")
-    val dayPeriod: Int,
+    val dayPeriod: Int = 0,
 )
