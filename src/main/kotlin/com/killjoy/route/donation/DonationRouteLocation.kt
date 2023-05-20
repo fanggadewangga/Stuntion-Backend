@@ -12,9 +12,11 @@ sealed class DonationRouteLocation {
         // POST
         const val POST_DONATION = DONATION
         private const val SELECTED_DONATION = "$DONATION/{donationId}"
+        const val POST_DONATION_DONOR = "$SELECTED_DONATION/donor"
 
         // GET
         const val DETAIL_DONATION = SELECTED_DONATION
+        const val DONATION_DONOR = "$SELECTED_DONATION/donor"
 
         // UPDATE
         const val UPDATE_DONATION_CURRENT_VALUE = SELECTED_DONATION
@@ -37,4 +39,10 @@ sealed class DonationRouteLocation {
 
     @Location(DELETE_DONATION)
     data class DonationDeleteRoute(val donationId: String)
+
+    @Location(POST_DONATION_DONOR)
+    data class DonationAddDonorRoute(val donationId: String, val uid: String)
+
+    @Location(DONATION_DONOR)
+    data class DonationGetDonorsRoute(val donationId: String)
 }

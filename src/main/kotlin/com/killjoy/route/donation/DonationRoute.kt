@@ -4,6 +4,7 @@ package com.killjoy.route.donation
 
 import com.killjoy.data.repository.donation.IDonationRepository
 import com.killjoy.model.donation.DonationBody
+import com.killjoy.model.donation.DonorBody
 import com.killjoy.route.RouteResponseHelper.generalException
 import com.killjoy.route.RouteResponseHelper.generalSuccess
 import io.ktor.application.*
@@ -80,6 +81,31 @@ class DonationRoute(
         }
     }
 
+    private fun Route.addNewDonor() {
+        post<DonationRouteLocation.DonationAddDonorRoute> {
+            val body = try {
+                call.receive<DonorBody>()
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@post
+            }
+            call.generalSuccess { repository.addNewDonor(body) }
+        }
+    }
+
+    private fun Route.getDonationDonors() {
+        get<DonationRouteLocation.DonationGetDonorsRoute> {
+            val donationId = try {
+                call.parameters["donationId"]
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@get
+            }
+
+            call.generalSuccess { repository.getAllDonors(donationId!!) }
+        }
+    }
+
     fun initDonationRoute(route: Route) {
         route.apply {
             addNewDonation()
@@ -87,6 +113,8 @@ class DonationRoute(
             getDonationDetail()
             updateDonationCurrentValue()
             deleteDonation()
+            addNewDonor()
+            getDonationDonors()
         }
     }
 }

@@ -33,7 +33,8 @@ class DatabaseFactory(
                 UserTaskTable,
                 PaymentMethodTable,
                 VoucherTable,
-                UserVoucherTable
+                UserVoucherTable,
+                DonorTable
             )
             tables.forEach { table ->
                 SchemaUtils.create(table)

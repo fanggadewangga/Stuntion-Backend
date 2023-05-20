@@ -3,13 +3,14 @@ package com.killjoy.data.repository.donation
 import com.aventrix.jnanoid.jnanoid.NanoIdUtils
 import com.killjoy.data.database.DatabaseFactory
 import com.killjoy.data.table.DonationTable
+import com.killjoy.data.table.DonorTable
 import com.killjoy.data.table.UserTable
-import com.killjoy.model.donation.DonationBody
-import com.killjoy.model.donation.DonationLiteResponse
-import com.killjoy.model.donation.DonationResponse
+import com.killjoy.model.donation.*
 import com.killjoy.util.Const.DATE_FORMAT
+import com.killjoy.util.Const.DATE_TIME_FORMAT
 import com.killjoy.util.mapRowToDonationLiteResponse
 import com.killjoy.util.mapRowToDonationResponse
+import com.killjoy.util.mapRowToDonorResponse
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.text.DateFormat
@@ -107,5 +108,43 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
                 DonationTable.donationId.eq(donationId)
             }
         }
+    }
+
+    override suspend fun addNewDonor(body: DonorBody) {
+        val dateObj = Date()
+        val df: DateFormat = SimpleDateFormat(DATE_TIME_FORMAT)
+        df.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+        val dateCreated = df.format(dateObj)
+
+        dbFactory.dbQuery {
+            DonorTable.insert { table ->
+                table[donationId] = body.donationId
+                table[donorId] = body.uid
+                table[nominal] = body.nominal
+                table[isAnonymous] = body.isAnonymous
+                table[timestamp] = dateCreated
+            }
+        }
+    }
+
+    override suspend fun getAllDonors(donationId: String): List<DonorResponse> = dbFactory.dbQuery {
+        val currentValue = DonationTable.select { DonationTable.donationId.eq(donationId) }
+            .firstNotNullOf { it[DonationTable.currentValue] }
+        DonationTable.update(where = { DonationTable.donationId eq donationId }) {
+            it[this.currentValue] = currentValue.plus(1)
+        }
+
+        DonorTable
+            .join(UserTable, JoinType.INNER) { DonorTable.donorId.eq(UserTable.uid) }
+            .slice(
+                DonorTable.donationId,
+                DonorTable.donorId,
+                DonorTable.nominal,
+                DonorTable.isAnonymous,
+                DonorTable.timestamp,
+                UserTable.uid
+            )
+            .select { DonorTable.donationId.eq(donationId) }
+            .mapNotNull { it.mapRowToDonorResponse() }
     }
 }

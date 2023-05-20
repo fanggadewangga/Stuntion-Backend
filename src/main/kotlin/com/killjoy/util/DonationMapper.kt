@@ -1,10 +1,13 @@
 package com.killjoy.util
 
 import com.killjoy.data.table.DonationTable
+import com.killjoy.data.table.DonorTable
 import com.killjoy.data.table.UserTable
 import com.killjoy.model.donation.DonationLiteResponse
 import com.killjoy.model.donation.DonationResponse
+import com.killjoy.model.donation.DonorResponse
 import com.killjoy.util.Const.DATE_FORMAT
+import com.killjoy.util.Const.DATE_TIME_FORMAT
 import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -68,5 +71,25 @@ fun ResultRow.mapRowToDonationResponse(): DonationResponse {
         done = isDone,
         lat = this[DonationTable.lat],
         lon = this[DonationTable.lon]
+    )
+}
+
+fun ResultRow.mapRowToDonorResponse(): DonorResponse {
+    val periodBetween = Period.between(
+        LocalDate.parse(
+            DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).format(LocalDateTime.now()),
+            DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
+        ), LocalDate.parse(
+            this[DonorTable.timestamp],
+            DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
+        )
+    )
+    val period = periodBetween.months * 30 + periodBetween.days
+
+    return DonorResponse(
+        donorName = if (this[DonorTable.isAnonymous]) "User" else this[UserTable.name] ?: "User",
+        nominal = this[DonorTable.nominal],
+        timestamp = this[DonorTable.timestamp],
+        dayPeriod = period
     )
 }
