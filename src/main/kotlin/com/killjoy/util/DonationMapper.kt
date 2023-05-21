@@ -33,6 +33,7 @@ fun ResultRow.mapRowToDonationLiteResponse(): DonationLiteResponse {
         imageUrl = this[DonationTable.imageUrl],
         currentValue = this[DonationTable.currentValue],
         maxValue = this[DonationTable.maxValue],
+        currentNominal = this[DonationTable.currentNominal],
         dayRemaining = dayRemaining,
         fee = this[DonationTable.fee],
         lat = this[DonationTable.lat],
