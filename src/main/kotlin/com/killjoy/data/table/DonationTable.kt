@@ -14,6 +14,7 @@ object DonationTable : Table() {
     val imageUrl = varchar("image_url", 1024)
     val currentValue = integer("current_value")
     val maxValue = integer("max_value")
+    val currentNominal = double("current_nominal").default(0.0)
     val uploaded_at = varchar("uploaded_at", 64)
     val deadline_at = varchar("deadline_at", 64)
     val fee = integer("fee")

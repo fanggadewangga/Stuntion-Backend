@@ -35,22 +35,13 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
                 table[imageUrl] = body.imageUrl
                 table[currentValue] = 0
                 table[maxValue] = body.maxValue
+                table[currentNominal] = 0.0
                 table[uploaded_at] = dateCreated
                 table[deadline_at] = body.deadlineAt
                 table[fee] = body.fee
                 table[done] = false
                 table[lat] = body.lat
                 table[lon] = body.lon
-            }
-        }
-    }
-
-    override suspend fun updateDonationCurrentValue(donationId: String) {
-        dbFactory.dbQuery {
-            val currentValue = DonationTable.select { DonationTable.donationId.eq(donationId) }
-                .firstNotNullOf { it[DonationTable.currentValue] }
-            DonationTable.update(where = { DonationTable.donationId eq donationId }) {
-                it[this.currentValue] = currentValue.plus(1)
             }
         }
     }
@@ -87,6 +78,7 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
                 DonationTable.imageUrl,
                 DonationTable.currentValue,
                 DonationTable.maxValue,
+                DonationTable.currentNominal,
                 DonationTable.uploaded_at,
                 DonationTable.deadline_at,
                 DonationTable.fee,
@@ -121,6 +113,12 @@ class DonationRepository(private val dbFactory: DatabaseFactory) : IDonationRepo
                 .firstNotNullOf { it[DonationTable.currentValue] }
             DonationTable.update(where = { DonationTable.donationId eq donationId }) {
                 it[this.currentValue] = currentValue.plus(1)
+            }
+
+            val currentNominal = DonationTable.select { DonationTable.donationId.eq(donationId) }
+                .firstNotNullOf { it[DonationTable.currentNominal] }
+            DonationTable.update(where = { DonationTable.donationId eq donationId }) {
+                it[this.currentNominal] = currentNominal.plus(body.nominal)
             }
 
             DonorTable.insert { table ->

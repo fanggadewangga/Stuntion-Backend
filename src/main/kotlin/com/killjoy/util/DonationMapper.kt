@@ -64,6 +64,7 @@ fun ResultRow.mapRowToDonationResponse(): DonationResponse {
         imageUrl = this[DonationTable.imageUrl],
         currentValue = this[DonationTable.currentValue],
         maxValue = this[DonationTable.maxValue],
+        currentNominal = this[DonationTable.currentNominal],
         uploadedAt = this[DonationTable.uploaded_at],
         deadlineAt = this[DonationTable.deadline_at],
         dayRemaining = dayRemaining,
@@ -77,10 +78,11 @@ fun ResultRow.mapRowToDonationResponse(): DonationResponse {
 fun ResultRow.mapRowToDonorResponse(): DonorResponse {
     val periodBetween = Period.between(
         LocalDate.parse(
-            DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).format(LocalDateTime.now()),
-            DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
-        ), LocalDate.parse(
             this[DonorTable.timestamp],
+            DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
+        ),
+        LocalDate.parse(
+            DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).format(LocalDateTime.now()),
             DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
         )
     )

@@ -1,4 +1,6 @@
-@file:OptIn(KtorExperimentalLocationsAPI::class, KtorExperimentalLocationsAPI::class)
+@file:OptIn(KtorExperimentalLocationsAPI::class, KtorExperimentalLocationsAPI::class,
+    KtorExperimentalLocationsAPI::class
+)
 
 package com.killjoy.route.donation
 
@@ -11,7 +13,6 @@ import com.killjoy.route.RouteResponseHelper.generalSuccess
 import io.ktor.application.*
 import io.ktor.locations.*
 import io.ktor.locations.post
-import io.ktor.locations.put
 import io.ktor.request.*
 import io.ktor.routing.*
 
@@ -58,20 +59,8 @@ class DonationRoute(
         }
     }
 
-    private fun Route.updateDonationCurrentValue() {
-        put<DonationRouteLocation.DonationUpdateCurrentValueRoute> {
-            val donationId = try {
-                call.parameters["donationId"]
-            } catch (e: Exception) {
-                call.generalException(e)
-                return@put
-            }
-            call.generalSuccess { repository.updateDonationCurrentValue(donationId!!) }
-        }
-    }
-
     private fun Route.deleteDonation() {
-        delete<DonationRouteLocation.DonationUpdateCurrentValueRoute> {
+        delete<DonationRouteLocation.DonationDeleteRoute> {
             val donationId = try {
                 call.parameters["donationId"]
             } catch (e: Exception) {
@@ -119,7 +108,6 @@ class DonationRoute(
             addNewDonation()
             getAllDonations()
             getDonationDetail()
-            updateDonationCurrentValue()
             deleteDonation()
             addNewDonor()
             getDonationDonors()

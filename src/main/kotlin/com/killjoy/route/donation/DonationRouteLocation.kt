@@ -18,9 +18,6 @@ sealed class DonationRouteLocation {
         const val DETAIL_DONATION = SELECTED_DONATION
         const val DONATION_DONOR = "$SELECTED_DONATION/donor"
 
-        // UPDATE
-        const val UPDATE_DONATION_CURRENT_VALUE = SELECTED_DONATION
-
         // DELETE
         const val DELETE_DONATION = SELECTED_DONATION
     }
@@ -33,9 +30,6 @@ sealed class DonationRouteLocation {
 
     @Location(DETAIL_DONATION)
     data class DonationGetDetailRoute(val donationId: String)
-
-    @Location(UPDATE_DONATION_CURRENT_VALUE)
-    data class DonationUpdateCurrentValueRoute(val donationId: String)
 
     @Location(DELETE_DONATION)
     data class DonationDeleteRoute(val donationId: String)
