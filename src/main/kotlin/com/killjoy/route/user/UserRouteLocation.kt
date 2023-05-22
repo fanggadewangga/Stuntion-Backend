@@ -12,6 +12,7 @@ class UserRouteLocation {
 
         // GET
         const val DETAIL_USER = SELECTED_USER
+        const val WALLET_USER = "$SELECTED_USER/wallet"
 
         // UPDATE
         const val UPDATE_USER = SELECTED_USER
@@ -26,6 +27,9 @@ class UserRouteLocation {
 
     @Location(DETAIL_USER)
     data class UserGetDetailRoute(val uid: String)
+
+    @Location(WALLET_USER)
+    data class UserGetWalletRoute(val uid: String)
 
     @Location(UPDATE_USER_GENERAL_INFORMATION)
     data class UserUpdateGeneralInformationRoute(val uid: String)

@@ -48,7 +48,7 @@ val databaseModule = module {
 
             validate()
         }
-        /*config.apply {
+/*        config.apply {
             driverClassName = System.getenv("JDBC_DRIVER")
             jdbcUrl = System.getenv("DATABASE_URL")
             maximumPoolSize = 6

@@ -43,6 +43,18 @@ class UserRoute(
         }
     }
 
+    private fun Route.getUserWallet() {
+        get<UserRouteLocation.UserGetWalletRoute> {
+            val uid = try {
+                call.parameters["uid"]
+            } catch (e: Exception) {
+                call.generalException(e)
+                return@get
+            }
+            call.generalSuccess { repository.getUserWallet(uid!!) }
+        }
+    }
+
     private fun Route.updateUserGeneralInformation() {
         put<UserRouteLocation.UserUpdateGeneralInformationRoute> {
 
@@ -118,6 +130,7 @@ class UserRoute(
         route.apply {
             addNewUser()
             getUserDetail()
+            getUserWallet()
             updateUserGeneralInformation()
             updateUserLevel()
             updateUserAvatar()

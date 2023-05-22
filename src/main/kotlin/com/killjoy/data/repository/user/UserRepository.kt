@@ -2,11 +2,11 @@ package com.killjoy.data.repository.user
 
 import com.killjoy.data.database.DatabaseFactory
 import com.killjoy.data.table.UserTable
+import com.killjoy.model.user.UserBalanceResponse
 import com.killjoy.model.user.UserBody
 import com.killjoy.model.user.UserGeneralInformationBody
+import com.killjoy.util.mapRowToUserBalanceResponse
 import com.killjoy.util.mapRowToUserResponse
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.minus
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.plus
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -31,6 +31,14 @@ class UserRepository(private val dbFactory: DatabaseFactory) : IUserRepository {
             UserTable.uid eq uid
         }.firstNotNullOf {
             it.mapRowToUserResponse()
+        }
+    }
+
+    override suspend fun getUserWallet(uid: String): UserBalanceResponse = dbFactory.dbQuery {
+        UserTable.select {
+            UserTable.uid eq uid
+        }.firstNotNullOf {
+            it.mapRowToUserBalanceResponse()
         }
     }
 
