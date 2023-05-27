@@ -13,6 +13,13 @@ fun ResultRow.mapRowToTaskListResponse(
     done = listOfUserTasks.contains(this[TaskTable.taskId])
 )
 
+fun ResultRow.mapRowToTaskListResponse() = TaskLiteResponse(
+    taskId = this[TaskTable.taskId],
+    task = this[TaskTable.task],
+    done = false
+)
+
+
 fun ResultRow.mapRowToTaskResponse(
     listOfInstructions: List<String>,
 ) = this[TaskTable.imageUrl]?.let {

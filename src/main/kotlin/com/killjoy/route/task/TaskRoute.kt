@@ -41,6 +41,12 @@ class TaskRoute(
         }
     }
 
+    private fun Route.getAllTasks() {
+        get<TaskRouteLocation.TaskGetAllRoute> {
+            call.generalSuccess { repository.getAllTasks() }
+        }
+    }
+
     private fun Route.getTasksByUser() {
         get<TaskRouteLocation.TaskGetByUserRoute> {
             val uid = try {
@@ -49,7 +55,7 @@ class TaskRoute(
                 call.generalException(e)
                 return@get
             }
-            call.generalSuccess { repository.getTasks(uid!!) }
+            call.generalSuccess { repository.getTasksByUid(uid!!) }
         }
     }
 
@@ -69,6 +75,7 @@ class TaskRoute(
         route.apply {
             addNewTask()
             addNewUserTask()
+            getAllTasks()
             getTasksByUser()
             getTaskDetail()
         }

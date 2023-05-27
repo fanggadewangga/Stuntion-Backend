@@ -46,7 +46,11 @@ class TaskRepository(private val dbFactory: DatabaseFactory) : ITaskRepository {
         }
     }
 
-    override suspend fun getTasks(uid: String): List<TaskLiteResponse> = dbFactory.dbQuery {
+    override suspend fun getAllTasks(): List<TaskLiteResponse> = dbFactory.dbQuery {
+        TaskTable.selectAll().mapNotNull { it.mapRowToTaskListResponse() }
+    }
+
+    override suspend fun getTasksByUid(uid: String): List<TaskLiteResponse> = dbFactory.dbQuery {
         val listOfCompletedTaskId = UserTaskTable.select { UserTaskTable.uid.eq(uid) }.map { it[UserTaskTable.taskId] }
         TaskTable.selectAll().mapNotNull { it.mapRowToTaskListResponse(listOfCompletedTaskId) }
     }

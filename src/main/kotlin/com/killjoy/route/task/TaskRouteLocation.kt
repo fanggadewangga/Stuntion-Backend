@@ -15,6 +15,7 @@ sealed class TaskRouteLocation {
 
         // GET
         private const val GET_USER_TASK = TASK
+        private const val GET_ALL_TASKS = POST_TASK
 
         // POST
         private const val POST_USER_TASK = TASK
@@ -28,6 +29,9 @@ sealed class TaskRouteLocation {
 
     @Location(GET_USER_TASK)
     data class TaskGetByUserRoute(val uid:String)
+
+    @Location(GET_ALL_TASKS)
+    class TaskGetAllRoute()
 
     @Location(POST_USER_TASK)
     data class TaskPostByUserRoute(val uid: String)

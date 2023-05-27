@@ -8,6 +8,7 @@ import com.killjoy.model.task.UserTaskBody
 interface ITaskRepository {
     suspend fun addNewTask(body: TaskBody) // clear
     suspend fun addNewUserTask(body: UserTaskBody) // clear
-    suspend fun getTasks(uid: String) : List<TaskLiteResponse> // clear (note : filter by age on notes in front-end)
+    suspend fun getAllTasks(): List<TaskLiteResponse>
+    suspend fun getTasksByUid(uid: String) : List<TaskLiteResponse> // clear (note : filter by age on notes in front-end)
     suspend fun getTaskDetail(taskId: String) : TaskResponse // clear
 }
